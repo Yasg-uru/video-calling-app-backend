@@ -1,4 +1,4 @@
 export default interface{
-    roomid:string ,
-    peerid:string 
+    roomId:string ,
+    peerId:string 
 }

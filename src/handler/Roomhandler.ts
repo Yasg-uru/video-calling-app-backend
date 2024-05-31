@@ -16,12 +16,23 @@ export const Roomhandler = (socket: Socket) => {
     console.log("room is created with id :", roomid);
   }
   // join room function
-  const joinroom = ({ roomId }: { roomId: string }) => {
-    console.log(`User joined room: ${roomId}`);
+  const joinroom = ({ roomId, peerId }: IRoomsparams) => {
+    if (rooms[roomId]) {
+      rooms[roomId].push(peerId);
+      //inserting new user in a particular id it can able to detect how many user is asociated with particular room
+      socket.join(roomId);
+
+      console.log(`User joined room: ${roomId} and peer id is :${peerId}`);
+      console.log(`array of peers:`,rooms[roomId]);
+      //below event is for logging purpose
+      socket.emit("get-users", {
+        roomId,
+        participants: rooms[roomId],
+      });
+    }
   };
-  
+
   // when we call functions when the client
   socket.on("create-room", createroom);
-  socket.on("joined-room",joinroom);
-
+  socket.on("joined-room", joinroom);
 };
