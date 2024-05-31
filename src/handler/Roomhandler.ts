@@ -1,0 +1,27 @@
+import { Socket } from "socket.io";
+import { v4 as UUIDv4 } from "uuid";
+import IRoomsparams from "../interfaces/IRoomsparams";
+
+const rooms: Record<string, string[]> = {};
+// {{1,[u1,u2,u3]},{2,{u1,u2,u3}}}
+
+export const Roomhandler = (socket: Socket) => {
+  //create room function
+  function createroom() {
+    const roomid = UUIDv4();
+    rooms[roomid] = []; //create a new entry for the room
+    socket.join(roomid); //we will make socket connection enter a new room
+    //we will emit an event when room is created
+    socket.emit("room-created", { roomid });
+    console.log("room is created with id :", roomid);
+  }
+  // join room function
+  const joinroom = ({ roomId }: { roomId: string }) => {
+    console.log(`User joined room: ${roomId}`);
+  };
+  
+  // when we call functions when the client
+  socket.on("create-room", createroom);
+  socket.on("joined-room",joinroom);
+
+};
