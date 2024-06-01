@@ -8,7 +8,7 @@ import { Roomhandler } from "./handler/Roomhandler";
 const app = express();
 app.use(cors({
   origin:"http://localhost:5173",
-  credentials: true,
+  credentials: false,
 }));
 const server = http.createServer(app);
 const io = new Server(server, {
