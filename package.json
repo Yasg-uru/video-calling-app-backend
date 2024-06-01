@@ -26,6 +26,7 @@
   "dependencies": {
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
+    "node-turn": "^0.0.6",
     "nodemon": "^3.1.2"
   }
 }

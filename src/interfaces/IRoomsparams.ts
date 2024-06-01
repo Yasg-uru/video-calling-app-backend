@@ -1,4 +1,4 @@
-export default interface{
-    roomId:string ,
-    peerId:string 
+export default interface IRoomsparams{
+    roomId:string ;
+    peerId:string;
 }

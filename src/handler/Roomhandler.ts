@@ -18,12 +18,25 @@ export const Roomhandler = (socket: Socket) => {
   // join room function
   const joinroom = ({ roomId, peerId }: IRoomsparams) => {
     if (rooms[roomId]) {
+      // If the given roomId exist in the in memory db
+      console.log(
+        "New user has joined room",
+        roomId,
+        "with peer id as",
+        peerId
+      );
+      // the moment new user joins, add the peerId to the key of roomId
       rooms[roomId].push(peerId);
-      //inserting new user in a particular id it can able to detect how many user is asociated with particular room
-      socket.join(roomId);
+      console.log("added peer to room", rooms);
+      socket.join(roomId); // make the user join the socket room
 
-      console.log(`User joined room: ${roomId} and peer id is :${peerId}`);
-      console.log(`array of peers:`,rooms[roomId]);
+      //if someone joins the room then ready event is emited from the frontend then emiting the joining room information to all the other users
+      socket.on("ready", () => {
+        console.log("ready event is called ");
+        // from the frontend once someone joins the room we will emit a ready event
+        // then from our server we will emit an event to all the clients conn that a new peer has added
+        socket.to(roomId).emit("user-joined", { peerId });
+      });
       //below event is for logging purpose
       socket.emit("get-users", {
         roomId,
