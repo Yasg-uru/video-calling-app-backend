@@ -7,14 +7,14 @@ import { Roomhandler } from "./handler/Roomhandler";
 
 const app = express();
 app.use(cors({
-  origin:"https://video-calling-app-frontend.vercel.app",
+  origin:"http://localhost:5173",
   credentials:true
 
 }));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://video-calling-app-frontend.vercel.app",
+    origin: "http://localhost:5173",
     methods:["GET","POST"],
     credentials:true
   },
