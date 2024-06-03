@@ -15,6 +15,7 @@ const io = new Server(server, {
   cors: {
     origin: "https://video-calling-app-frontend.vercel.app",
     methods: ["GET", "POST"],
+    credentials: true, 
   },
 });
 io.on("connection", (socket) => {
