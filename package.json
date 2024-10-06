@@ -4,12 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "watch": "tsc -w",
-    "prestart": "npm run build",
-    "start": "node dist/index.js",
-    "dev": "npx concurrently --kill-others \"npm run watch\" \"npm start\""
+    "start": "npm run build && node dist/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "author": "yash choudhary",
   "license": "ISC",
